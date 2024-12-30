@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: receitar-io
+server:
+  port: 8081
