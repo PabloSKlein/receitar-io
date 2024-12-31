@@ -1,0 +1,26 @@
+@startuml
+
+class Recipe
+
+class Ingredient
+
+class Post
+
+class User
+
+class UserGroup
+
+class Group
+
+Recipe "many" -- "1" Ingredient
+User "many" -- "1" Recipe
+
+Group "many" -right- "many" User
+(User, Group) .. UserGroup
+
+Post "many" -left- "1" Recipe : contains
+Post "many" -right- "1" Group : contains
+Post "many" -up- "1" User
+
+
+@enduml
