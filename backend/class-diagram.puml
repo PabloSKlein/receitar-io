@@ -12,7 +12,7 @@ class UserGroup
 
 class Group
 
-Recipe "many" -- "1" Ingredient
+Recipe "1" -- "many" Ingredient
 User "many" -- "1" Recipe
 
 Group "many" -right- "many" User
