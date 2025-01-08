@@ -1,8 +1,8 @@
-package com.receitar.controller;
+package com.receitar.client.controller;
 
-import com.receitar.dto.UserCreateDto;
-import com.receitar.dto.UserViewDto;
-import com.receitar.service.UserService;
+import com.receitar.client.dto.UserCreateDto;
+import com.receitar.client.service.UserService;
+import com.receitar.client.dto.UserViewDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

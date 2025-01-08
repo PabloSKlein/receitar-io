@@ -1,4 +1,4 @@
-package com.receitar.dto;
+package com.receitar.client.dto;
 
 public record UserCreateDto(String name) {
 

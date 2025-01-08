@@ -1,9 +1,9 @@
-package com.receitar.service;
+package com.receitar.client.service;
 
-import com.receitar.dto.UserCreateDto;
-import com.receitar.dto.UserViewDto;
-import com.receitar.model.User;
-import com.receitar.repository.UserRepository;
+import com.receitar.client.dto.UserCreateDto;
+import com.receitar.client.dto.UserViewDto;
+import com.receitar.client.model.User;
+import com.receitar.client.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

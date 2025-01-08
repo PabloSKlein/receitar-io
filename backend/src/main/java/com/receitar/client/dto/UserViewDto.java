@@ -1,6 +1,6 @@
-package com.receitar.dto;
+package com.receitar.client.dto;
 
-import com.receitar.model.User;
+import com.receitar.client.model.User;
 
 import java.util.UUID;
 

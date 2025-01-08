@@ -1,6 +1,6 @@
-package com.receitar.repository;
+package com.receitar.client.repository;
 
-import com.receitar.model.User;
+import com.receitar.client.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
