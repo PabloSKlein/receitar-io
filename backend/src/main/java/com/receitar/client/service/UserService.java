@@ -4,6 +4,7 @@ import com.receitar.client.dto.UserCreateDto;
 import com.receitar.client.dto.UserViewDto;
 import com.receitar.client.model.User;
 import com.receitar.client.repository.UserRepository;
+import com.receitar.common.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class UserService {
     }
 
     public UserViewDto getById(UUID id) {
-        User user = userRepository.findById(id).orElseThrow();
+        User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User"));
         return new UserViewDto(user.getId(), user.getName());
     }
 
