@@ -13,7 +13,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @RequestMapping("/users")
 public class UserController {
-
     private final UserService userService;
 
     @PostMapping
@@ -23,7 +22,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     UserViewDto getById(@PathVariable UUID id) {
-        return userService.getById(id);
+        return new UserViewDto(userService.getById(id));
     }
 
     @GetMapping
@@ -32,8 +31,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    void deleteById(@PathVariable UUID id){
+    void deleteById(@PathVariable UUID id) {
         userService.deleteById(id);
     }
+
 
 }

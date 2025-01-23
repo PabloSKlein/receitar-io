@@ -1,4 +1,6 @@
 spring:
+  h2:
+    console.enabled: true
   application:
     name: receitar-io
   datasource:
@@ -7,8 +9,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-  database-platform=org:
-    hibernate:
-      dialect: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.H2Dialect
 server:
   port: 8081

@@ -24,9 +24,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public UserViewDto getById(UUID id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User"));
-        return new UserViewDto(user.getId(), user.getName());
+    public User getById(UUID id) {
+        return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User"));
     }
 
     public List<UserViewDto> getAll() {

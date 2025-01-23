@@ -22,8 +22,8 @@ public class RecipeController {
     }
 
     @GetMapping
-    List<RecipeViewDto> getAll() {
-        return recipeService.getAll()
+    List<RecipeViewDto> getAll(@RequestParam(required = false) UUID userId) {
+        return recipeService.getAll(userId)
                 .stream()
                 .map(RecipeViewDto::new)
                 .toList();
@@ -39,7 +39,7 @@ public class RecipeController {
         recipeService.deleteById(id);
     }
 
-    @PostMapping("/{id}/ingredients")
+    @PutMapping("/{id}/ingredients")
     void overwriteIngredients(@PathVariable UUID id, @RequestBody IngredientsDto ingredientsDto) {
         recipeService.overwriteIngredients(id, ingredientsDto.ingredients());
     }
