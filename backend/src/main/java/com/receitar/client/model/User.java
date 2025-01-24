@@ -1,11 +1,13 @@
 package com.receitar.client.model;
 
 import com.receitar.favorite.model.Favorite;
+import com.receitar.group.model.GroupUser;
 import com.receitar.recipe.model.Recipe;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +15,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -25,4 +27,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Favorite> favorites;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<GroupUser> groupUsers;
 }

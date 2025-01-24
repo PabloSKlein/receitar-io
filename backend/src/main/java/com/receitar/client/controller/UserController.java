@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin
 @AllArgsConstructor
 @RequestMapping("/users")
 public class UserController {

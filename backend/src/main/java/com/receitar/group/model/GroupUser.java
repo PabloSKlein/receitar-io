@@ -1,20 +1,17 @@
-package com.receitar.favorite.model;
+package com.receitar.group.model;
 
 import com.receitar.client.model.User;
-import com.receitar.recipe.model.Recipe;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 @Table
 @Entity
 @Setter
 @Getter
-public class Favorite implements Serializable {
-
+public class GroupUser {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -24,8 +21,6 @@ public class Favorite implements Serializable {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "recipe_id")
-    private Recipe recipe;
-
-
+    @JoinColumn(name = "group_id")
+    private Group group;
 }
