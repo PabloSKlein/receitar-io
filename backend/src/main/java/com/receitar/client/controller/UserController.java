@@ -1,8 +1,8 @@
 package com.receitar.client.controller;
 
 import com.receitar.client.dto.UserCreateDto;
-import com.receitar.client.service.UserService;
 import com.receitar.client.dto.UserViewDto;
+import com.receitar.client.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +36,9 @@ public class UserController {
         userService.deleteById(id);
     }
 
+    @GetMapping("/name")
+    UserViewDto getUserByName(@RequestBody UserCreateDto userCreateDto) {
+        return new UserViewDto(userService.getUserByName(userCreateDto.name()));
+    }
 
 }

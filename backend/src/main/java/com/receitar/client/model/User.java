@@ -11,10 +11,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-@Table(name = "app_user")
 @Entity
 @Getter
 @Setter
+@Table(name = "app_user")
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

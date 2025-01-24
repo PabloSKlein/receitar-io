@@ -4,6 +4,7 @@ import com.receitar.client.dto.UserCreateDto;
 import com.receitar.client.dto.UserViewDto;
 import com.receitar.client.model.User;
 import com.receitar.client.repository.UserRepository;
+import com.receitar.common.exception.BusinessException;
 import com.receitar.common.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,12 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User create(UserCreateDto userDto) {
+        String userDtoName = userDto.name().replace(" ", "");
+        if (userRepository.findByName(userDtoName).isPresent()) {
+            throw new BusinessException("This name is not available");
+        }
         User user = new User();
-        user.setName(userDto.name());
-
+        user.setName(userDtoName);
         return userRepository.save(user);
     }
 
@@ -37,5 +41,9 @@ public class UserService {
 
     public void deleteById(UUID id) {
         userRepository.deleteById(id);
+    }
+
+    public User getUserByName(String name) {
+        return userRepository.findByName(name).orElseThrow();
     }
 }
