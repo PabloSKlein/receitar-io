@@ -1,11 +1,8 @@
 package com.receitar.group.controller;
 
-import com.receitar.client.dto.UserViewDto;
-import com.receitar.group.dto.GroupAddDto;
-import com.receitar.group.dto.GroupCreateDto;
-import com.receitar.group.dto.GroupUserDto;
-import com.receitar.group.dto.GroupViewDto;
+import com.receitar.group.dto.*;
 import com.receitar.group.service.GroupService;
+import com.receitar.group.service.GroupUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +15,7 @@ import java.util.UUID;
 public class GroupController {
 
     private final GroupService groupService;
+    private final GroupUserService groupUserService;
 
     @PostMapping
     void create(@RequestBody GroupCreateDto groupCreateDto) {
@@ -38,24 +36,29 @@ public class GroupController {
 
     @PostMapping("/users")
     void addUserToGroup(@RequestBody GroupAddDto groupAddDto) {
-        groupService.addUserToGroup(groupAddDto.groupId(), groupAddDto.userId());
+        groupService.addUserToGroup(groupAddDto.groupId(), groupAddDto.userId(), groupAddDto.systemUserId());
     }
 
     @GetMapping("/{id}/users")
-    List<UserViewDto> getAllUsersByGroup(@PathVariable UUID id) {
+    List<GroupUserViewDto> getAllUsersByGroup(@PathVariable UUID id) {
         return groupService.getAllUsersByGroup(id).stream()
-                .map(UserViewDto::new)
+                .map(GroupUserViewDto::new)
                 .toList();
     }
 
+    @PostMapping("/users/admins")
+    void changeAdministrator(@RequestBody ChangeAdministratorDto changeAdministratorDto) {
+        groupUserService.changeAdministrator(changeAdministratorDto);
+    }
+
     @DeleteMapping("/users")
-    void removeUserFromGroup(GroupUserDto groupUserDto){
-        //TODO
+    void removeUserFromGroup(GroupUserDto groupUserDto) {
+        groupService.removeUserFromGroup(groupUserDto);
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable UUID id){
-        //TODO validate that all GroupUsers related to this group, are also deleted.
+    void delete(@PathVariable UUID id, UUID systemUserId) {
+        groupService.delete(id, systemUserId);
     }
 
 
