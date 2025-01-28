@@ -22,7 +22,7 @@ public class FavoriteController {
         favoriteService.create(favoriteDto);
     }
 
-    @GetMapping("/user-id/{userId}")
+    @GetMapping("/users/{userId}")
     List<RecipeViewDto> getAllByUser(@PathVariable UUID userId) {
         return favoriteService.getAllByUser(userId);
     }

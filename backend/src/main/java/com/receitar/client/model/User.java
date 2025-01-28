@@ -3,6 +3,7 @@ package com.receitar.client.model;
 import com.receitar.favorite.model.Favorite;
 import com.receitar.group.model.GroupUser;
 import com.receitar.recipe.model.Recipe;
+import com.receitar.review.model.Review;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,4 +31,7 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<GroupUser> groupUsers;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 }

@@ -2,6 +2,8 @@ package com.receitar.recipe.model;
 
 import com.receitar.client.model.User;
 import com.receitar.favorite.model.Favorite;
+import com.receitar.group.model.GroupRecipe;
+import com.receitar.review.model.Review;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,4 +33,10 @@ public class Recipe implements Serializable {
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Favorite> favorites;
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private List<GroupRecipe> groupRecipes;
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 }

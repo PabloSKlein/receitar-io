@@ -21,17 +21,21 @@ public class RecipeController {
         return new RecipeViewDto(recipeService.create(recipeCreateDto));
     }
 
-    @GetMapping
-    List<RecipeViewDto> getAll(@RequestParam(required = false) UUID userId) {
-        return recipeService.getAll(userId)
-                .stream()
-                .map(RecipeViewDto::new)
-                .toList();
+    @GetMapping("/all/{userId}")
+    List<RecipeViewDto> getAllById(@PathVariable UUID userId) {
+        return recipeService.getAllById(userId);
     }
 
     @GetMapping("/{id}")
     RecipeViewDto getById(@PathVariable UUID id) {
-        return new RecipeViewDto(recipeService.getById(id));
+        return recipeService.getRecipeViewById(id);
+    }
+
+    @GetMapping
+    List<RecipeViewDto> getALl() {
+        return recipeService.getALl().stream()
+                .map(RecipeViewDto::new)
+                .toList();
     }
 
     @DeleteMapping("/{id}")
