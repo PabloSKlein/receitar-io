@@ -6,12 +6,14 @@ import com.receitar.common.exception.NotFoundException;
 import com.receitar.group.dto.GroupRecipeCreateDto;
 import com.receitar.group.model.Group;
 import com.receitar.group.model.GroupRecipe;
+import com.receitar.group.model.GroupUser;
 import com.receitar.group.repository.GroupRecipeRepository;
 import com.receitar.recipe.model.Recipe;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,5 +50,27 @@ public class GroupRecipeService {
             return groupRecipeRepository.findAllByGroupId(groupId).subList(0, quantity);
         }
         return groupRecipeRepository.findAllByGroupId(groupId);
+    }
+
+    public List<Recipe> getRecipesAddedLastInGroups(UUID userId) {
+        List<Recipe> recipes = new ArrayList<>();
+
+        User user = userService.getById(userId);
+        List<Group> groups = user.getGroupUsers().stream()
+                .map(GroupUser::getGroup)
+                .toList();
+
+        for (Group group : groups) {
+            List<Recipe> recipeList = group.getGroupRecipes().stream()
+                    .map(GroupRecipe::getRecipe)
+                    .filter(it -> it.getUser().getId() != userId)
+                    .toList();
+
+            if (!recipeList.isEmpty()) {
+                Recipe recipe = recipeList.get(recipeList.size() - 1);
+                recipes.add(recipe);
+            }
+        }
+        return recipes;
     }
 }

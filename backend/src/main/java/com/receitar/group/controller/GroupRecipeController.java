@@ -3,6 +3,7 @@ package com.receitar.group.controller;
 import com.receitar.group.dto.GroupRecipeCreateDto;
 import com.receitar.group.dto.GroupRecipeViewDto;
 import com.receitar.group.service.GroupRecipeService;
+import com.receitar.recipe.dto.RecipeViewDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,5 +27,12 @@ public class GroupRecipeController {
                 .stream()
                 .map(GroupRecipeViewDto::new)
                 .toList();
+    }
+
+    @GetMapping("/groups/users/{userId}/recipes")
+    List<RecipeViewDto> getRecipesAddedLastInGroups(@PathVariable UUID userId) {
+       return groupRecipeService.getRecipesAddedLastInGroups(userId).stream()
+               .map(RecipeViewDto::new)
+               .toList();
     }
 }
