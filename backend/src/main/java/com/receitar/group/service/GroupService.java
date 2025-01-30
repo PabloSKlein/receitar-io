@@ -27,7 +27,7 @@ public class GroupService {
 
     private final GroupUserRepository groupUserRepository;
 
-    public void create(GroupCreateDto groupCreateDto) {
+    public Group create(GroupCreateDto groupCreateDto) {
         User user = userService.getById(groupCreateDto.userId());
 
         Group group = new Group();
@@ -39,7 +39,7 @@ public class GroupService {
 
         groupRepository.save(group);
 
-        addUserToGroup(group, user, true);
+        return addUserToGroup(group, user, true).getGroup();
     }
 
     public void addUserToGroup(UUID groupId, UUID userId, UUID systemUserId) {
@@ -78,14 +78,16 @@ public class GroupService {
 
     }
 
-    private void addUserToGroup(Group group, User user, Boolean isAdministrator) {
+    private GroupUser addUserToGroup(Group group, User user, Boolean isAdministrator) {
         GroupUser groupUser = new GroupUser();
 
         groupUser.setGroup(group);
         groupUser.setUser(user);
         groupUser.setAdministrator(isAdministrator);
 
-        groupUserRepository.save(groupUser);
+        group.getGroupUsers().add(groupUser);
+
+        return groupUserRepository.save(groupUser);
     }
 
     public void verifyIfUserIsAdmin(UUID groupId, UUID systemUserId) {

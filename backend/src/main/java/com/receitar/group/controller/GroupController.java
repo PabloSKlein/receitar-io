@@ -18,8 +18,8 @@ public class GroupController {
     private final GroupUserService groupUserService;
 
     @PostMapping
-    void create(@RequestBody GroupCreateDto groupCreateDto) {
-        groupService.create(groupCreateDto);
+    GroupViewDto create(@RequestBody GroupCreateDto groupCreateDto) {
+        return new GroupViewDto(groupService.create(groupCreateDto));
     }
 
     @GetMapping

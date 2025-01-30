@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,8 +28,8 @@ public class Group {
     private LocalDate createdDate;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-    private List<GroupUser> groupUsers;
+    private List<GroupUser> groupUsers = new ArrayList<>();
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-    private List<GroupRecipe> groupRecipes;
+    private List<GroupRecipe> groupRecipes = new ArrayList<>();
 }
