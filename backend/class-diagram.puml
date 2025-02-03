@@ -4,23 +4,31 @@ class Recipe
 
 class Ingredient
 
-class Post
-
 class User
 
 class UserGroup
 
 class Group
 
+class GroupRecipe
+
+class Favorite
+
 Recipe "1" -- "many" Ingredient
+
 User "many" -- "1" Recipe
 
-Group "many" -right- "many" User
+User "many" -- "many" Recipe
+(User, Recipe) .. Favorite
+
+User "many" -- "many" Recipe
+(User, Recipe) .. Review
+
+Group "many" -- "many" User
 (User, Group) .. UserGroup
 
-Post "many" -left- "1" Recipe : contains
-Post "many" -right- "1" Group : contains
-Post "many" -up- "1" User
+Group "many" -- "many" Recipe
+(Recipe, Group) .. GroupRecipe
 
 
 @enduml

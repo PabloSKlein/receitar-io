@@ -21,7 +21,7 @@ public class RecipeController {
         return new RecipeViewDto(recipeService.create(recipeCreateDto));
     }
 
-    @GetMapping("/all/{userId}")
+    @GetMapping("/users/{userId}")
     List<RecipeViewDto> getAllById(@PathVariable UUID userId) {
         return recipeService.getAllById(userId);
     }
