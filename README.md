@@ -44,4 +44,4 @@ Integration tests are implemented using Rest Assured. To run tests, execute:
    ```
 
 ### Class diagram
-![class-diagram](class-diagram.png)
+![class-diagram](backend/class-diagram.png)
