@@ -2,10 +2,7 @@ package com.receitar.group.controller;
 
 import com.receitar.client.controller.UserControllerIT;
 import com.receitar.commons.BaseIT;
-import com.receitar.group.dto.ChangeAdministratorDto;
-import com.receitar.group.dto.GroupAddDto;
-import com.receitar.group.dto.GroupCreateDto;
-import com.receitar.group.dto.GroupViewDto;
+import com.receitar.group.dto.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
@@ -47,13 +44,28 @@ class GroupControllerIT extends BaseIT {
                 .get("/groups/{id}", groupId)
                 .then()
                 .statusCode(200)
-                .body("id", equalTo(groupId))
+                .body("id", equalTo(groupId.toString()))
                 .body("name", equalTo("Receitas fit"))
                 .body("description", equalTo("receitas saudáveis"))
                 .body("quantity", equalTo(1))
                 .body("quantityAdmin", equalTo(1))
-                .body("createdBy", equalTo(userId))
+                .body("createdBy", equalTo(userId.toString()))
                 .body("createdDate", notNullValue());
+    }
+
+    @Test
+    void shouldGetAllUsersByGroup() {
+        var userId = userControllerIT.createUser("luara");
+        var id = createGroup("Receitas marombas", "receitas fáceis", userId);
+        given()
+                .when()
+                .get("/groups/{id}/users", id)
+                .then()
+                .statusCode(200)
+                .body("$", hasSize(1))
+                .body("[0].userId", equalTo(userId.toString()))
+                .body("[0].userName", equalTo("luara"))
+                .body("[0].isAdmin", equalTo(true));
     }
 
     @Test
@@ -132,6 +144,33 @@ class GroupControllerIT extends BaseIT {
                 .body("quantityAdmin", equalTo(2))
                 .body("createdBy", equalTo(userCreator.toString()))
                 .body("createdDate", notNullValue());
+    }
+    @Test
+    void shouldRemoveUserFromGroup(){
+        var user = userControllerIT.createUser("carla");
+        var group = createGroup("Receitas fit", "receitas saudáveis", user);
+
+        var userToRemove = userControllerIT.createUser("bruna");
+        addUserToGroupSuccess(group, userToRemove, user);
+
+        var groupUserDto = new GroupUserDto(userToRemove, group, user);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(gson.toJson(groupUserDto))
+                .when()
+                .delete("/groups/users")
+                .then()
+                .statusCode(200);
+
+        given()
+                .when()
+                .get("/groups/{id}", group)
+                .then()
+                .statusCode(200)
+                .body("id", equalTo(group.toString()))
+                .body("quantity", equalTo(1))
+                .body("quantityAdmin", equalTo(1));
     }
 
     @Test

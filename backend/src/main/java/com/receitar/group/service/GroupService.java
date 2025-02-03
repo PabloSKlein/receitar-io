@@ -9,6 +9,7 @@ import com.receitar.group.model.Group;
 import com.receitar.group.model.GroupUser;
 import com.receitar.group.repository.GroupRepository;
 import com.receitar.group.repository.GroupUserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +66,7 @@ public class GroupService {
                 .toList();
     }
 
+    @Transactional
     public void removeUserFromGroup(GroupUserDto groupUserDto) {
         verifyIfUserIsAdmin(groupUserDto.groupId(), groupUserDto.systemUserId());
 
@@ -74,8 +76,8 @@ public class GroupService {
                 .findFirst()
                 .orElseThrow(() -> new BusinessException("User is not in this group."));
 
-        groupUserRepository.delete(groupUser);
 
+        groupUserRepository.delete(groupUser);
     }
 
     private GroupUser addUserToGroup(Group group, User user, Boolean isAdministrator) {

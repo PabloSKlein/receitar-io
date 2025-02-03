@@ -29,7 +29,7 @@ public class UserControllerIT extends BaseIT {
                 .get("/users/{id}", id)
                 .then()
                 .statusCode(200)
-                .body("id", equalTo(id))
+                .body("id", equalTo(id.toString()))
                 .body("name", equalTo("paulo"))
         ;
     }
@@ -58,11 +58,11 @@ public class UserControllerIT extends BaseIT {
                 .then()
                 .statusCode(200)
                 .body("$", hasSize(2))
-                .body("id", hasItems(lua, luana))
+                .body("id", hasItems(lua.toString(), luana.toString()))
                 .body("name", hasItems("lua", "luana"))
-                .body("[0].id", equalTo(lua))
+                .body("[0].id", equalTo(lua.toString()))
                 .body("[0].name", equalTo("lua"))
-                .body("[1].id", equalTo(luana))
+                .body("[1].id", equalTo(luana.toString()))
                 .body("[1].name", equalTo("luana"))
         ;
     }

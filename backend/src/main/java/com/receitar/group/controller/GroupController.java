@@ -52,7 +52,7 @@ public class GroupController {
     }
 
     @DeleteMapping("/users")
-    void removeUserFromGroup(GroupUserDto groupUserDto) {
+    void removeUserFromGroup(@RequestBody GroupUserDto groupUserDto) {
         groupService.removeUserFromGroup(groupUserDto);
     }
 

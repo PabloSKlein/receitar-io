@@ -27,9 +27,9 @@ public class Group {
 
     private LocalDate createdDate;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group")
     private List<GroupUser> groupUsers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group")
     private List<GroupRecipe> groupRecipes = new ArrayList<>();
 }
