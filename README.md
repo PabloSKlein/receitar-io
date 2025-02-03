@@ -1,6 +1,6 @@
 # Receitar-io
 
-Receitar-io is a collaborative application for sharing and reviewing recipes within groups. Users can manage recipes,
+Receitar-io is an application for sharing and reviewing recipes within groups. Users can manage recipes,
 organize favorites and add reviews.
 
 ## Features
