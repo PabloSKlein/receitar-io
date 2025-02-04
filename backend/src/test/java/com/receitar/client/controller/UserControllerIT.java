@@ -67,6 +67,39 @@ public class UserControllerIT extends BaseIT {
         ;
     }
 
+    @Test
+    void shouldGetUserByName() {
+        var userId = createUser("lua");
+        UserCreateDto userCreateDto = new UserCreateDto("lua");
+        given()
+                .contentType(ContentType.JSON)
+                .body(gson.toJson(userCreateDto))
+                .when()
+                .get("/users/name")
+                .then()
+                .statusCode(200)
+                .body("id", equalTo(userId.toString()))
+                .body("name", equalTo("lua"))
+        ;
+    }
+
+    @Test
+    void shouldDeleteUser() {
+        var userId = createUser("paloma");
+        given()
+                .when()
+                .delete("/users/{id}", userId)
+                .then()
+                .statusCode(200);
+        given()
+                .when()
+                .get("/users/{id}", userId)
+                .then()
+                .statusCode(404)
+                .body("message", equalTo("User not found."))
+        ;
+    }
+
 
     public UUID createUser(String name) {
         //given / arrange - preparar os dados

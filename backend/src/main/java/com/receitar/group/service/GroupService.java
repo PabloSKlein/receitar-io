@@ -3,6 +3,7 @@ package com.receitar.group.service;
 import com.receitar.client.model.User;
 import com.receitar.client.service.UserService;
 import com.receitar.common.exception.BusinessException;
+import com.receitar.common.exception.NotFoundException;
 import com.receitar.group.dto.GroupCreateDto;
 import com.receitar.group.dto.GroupUserDto;
 import com.receitar.group.model.Group;
@@ -53,7 +54,7 @@ public class GroupService {
     }
 
     public Group findById(UUID id) {
-        return groupRepository.findById(id).orElseThrow();
+        return groupRepository.findById(id).orElseThrow(()->new NotFoundException("Group"));
     }
 
     public List<Group> getAll() {

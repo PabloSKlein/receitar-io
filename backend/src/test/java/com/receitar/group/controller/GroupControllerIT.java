@@ -174,6 +174,31 @@ class GroupControllerIT extends BaseIT {
     }
 
     @Test
+    void shouldDeleteGroup(){
+        var user = userControllerIT.createUser("carla");
+        var id = createGroup("Receitas fit", "receitas saudáveis", user);
+
+        GroupDeleteDto groupDeleteDto = new GroupDeleteDto(id, user);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(gson.toJson(groupDeleteDto))
+                .when()
+                .delete("/groups")
+                .then()
+                .statusCode(200)
+                ;
+
+        given()
+                .when()
+                .get("/groups/{id}", id)
+                .then()
+                .statusCode(404)
+                .body("message", equalTo("Group not found."))
+        ;
+    }
+
+    @Test
     void shouldReturnErrorChangeAdmin() {
         var userCreator = userControllerIT.createUser("lua");
         var groupId = createGroup("Receitas fit", "receitas saudáveis", userCreator);

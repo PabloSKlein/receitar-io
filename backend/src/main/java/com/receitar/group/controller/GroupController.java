@@ -56,10 +56,8 @@ public class GroupController {
         groupService.removeUserFromGroup(groupUserDto);
     }
 
-    @DeleteMapping("/{id}")
-    void delete(@PathVariable UUID id, UUID systemUserId) {
-        groupService.delete(id, systemUserId);
+    @DeleteMapping
+    void delete(@RequestBody GroupDeleteDto groupDeleteDto) {
+        groupService.delete(groupDeleteDto.id(), groupDeleteDto.systemUserId());
     }
-
-
 }
